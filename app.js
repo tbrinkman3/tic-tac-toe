@@ -24,10 +24,12 @@ $(document).ready(function() {
 
     $square.on('click', function() {
       if (count >= 8) {
-        alert('End of Game')
+        alert('End of Game');
       }
-      var id = $(this).attr('id');
-      //console.log(id)
+      if ($(this).hasClass('blank')) {
+        console.log('works');
+        $(this).removeClass('blank');
+        var id = $(this).attr('id');
       if(count % 2 === 0) {
         $('#'+id).text('X');
         count++;
@@ -35,6 +37,9 @@ $(document).ready(function() {
       $('#'+id).text('O');
       count++;
       }
+      }
+
+
 
       checkWinner()
 

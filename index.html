@@ -7,21 +7,22 @@
     <link rel='stylesheet' href='style.css'>
   </head>
   <body>
-  <div class='container'>
-    <h1>Tic Tac Toe</h1>
-    <div class='gameboard'>
-      <div class='square blank' id='square1'>1</div>
-      <div class='square blank' id='square2'>1</div>
-      <div class='square blank' id='square3'>1</div>
-      <div class='square ' id='square4'>1</div>
-      <div class='square blank' id='square5'>1</div>
-      <div class='square blank' id='square6'>1</div>
-      <div class='square blank' id='square7'>1</div>
-      <div class='square blank' id='square8'>1</div>
-      <div class='square blank' id='square9'>1</div>
-    </div>
-
-  </div>
+    <section>
+      <h1 class='game--title'>Tic Tac Toe</h1>
+      <div class='game--container'>
+        <div data-cell-index='0' class='cell'></div>
+        <div data-cell-index='1' class='cell'></div>
+        <div data-cell-index='2' class='cell'></div>
+        <div data-cell-index='3' class='cell'></div>
+        <div data-cell-index='4' class='cell'></div>
+        <div data-cell-index='5' class='cell'></div>
+        <div data-cell-index='6' class='cell'></div>
+        <div data-cell-index='7' class='cell'></div>
+        <div data-cell-index='8' class='cell'></div>
+      </div>
+      <h2 class='game--status'></h2>
+      <button class='game--restart'>Restart Game</button>
+    </section>
 
   <script src='app.js'></script>
   </body>

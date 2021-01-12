@@ -1,64 +1,105 @@
 $(document).ready(function() {
+  console.log('werks')
+  const $statusDisplay = $('.game--status');
 
-  var $square = $('.square');
+  const $cells = $('.cell');
+  const $restart = $('.game--restart');
+
+  const winningConditions = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ];
+
+  const winningMessage = () => `Player ${currentPlayer} has won!`;
+  const drawMessage = () => `Game ended in a draw!`
+  const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
 
 
-  var playGame = function() {
+  let gameActive = true;
 
-    var count = 0;
+  let currentPlayer = 'X';
 
+  let gameState = ['','','','','','','','',''];
 
-    var checkWinner = function() {
-      if (count > 6) {
-        $square1 = $('#square1').text()
-        $square2 = $('#square2').text()
-        $square3 = $('#square3').text()
+  $statusDisplay.html(currentPlayerTurn());
 
-        if ($square1 === $square2 && $square2 === $square3) {
-          alert($square1 + ' Wins!')
-        }
+  function handleCellPlayed(clickedCell, clickedCellIndex) {
+    gameState[clickedCellIndex] = currentPlayer;
+    clickedCell.innerHTML = currentPlayer;
+  }
+
+  function handlePlayerChange() {
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    $statusDisplay.html(currentPlayerTurn())
+  }
+
+  function handleResultValidation() {
+    let roundWon = false;
+    for (let i = 0; i <= 7; i++) {
+      const winCondition = winningConditions[i];
+      let a = gameState[winCondition[0]];
+      let b = gameState[winCondition[1]];
+      let c = gameState[winCondition[2]];
+
+      if(a==='' || b==='' || c === '') {
+        continue;
       }
-
+      if (a === b && b === c) {
+        roundWon = true;
+        break;
+      }
+    }
+    if (roundWon) {
+      $statusDisplay.html(winningMessage());
+      gameActive = false;
+      return;
     }
 
+    let roundDraw = !gameState.includes('');
+    if (roundDraw) {
+      $statusDisplay.html(drawMessage());
+      gameActive = false;
+      return;
+    }
+    handlePlayerChange();
 
-    $square.on('click', function() {
-      if (count >= 8) {
-        alert('End of Game');
-      }
-      if ($(this).hasClass('blank')) {
-        console.log('works');
-        $(this).removeClass('blank');
-        var id = $(this).attr('id');
-      if(count % 2 === 0) {
-        $('#'+id).text('X');
-        count++;
-      } else {
-      $('#'+id).text('O');
-      count++;
-      }
-      }
+  }
 
+  function handleCellClick(clickedCellEvent) {
+    const clickedCell = clickedCellEvent.target;
+    const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
 
+    if (gameState[clickedCellIndex] !== '' || !gameActive) {
+      return;
+    }
 
-      checkWinner()
+    handleCellPlayed(clickedCell, clickedCellIndex);
+    handleResultValidation();
 
-    })
+  }
 
+  function handleRestartGame() {
+    gameActive = true;
+    currentPlayer = 'X';
+    gameState = ['','','','','','','','',''];
+    $statusDisplay.html(currentPlayerTurn());
+    $cells.html('');
 
   }
 
 
 
-  playGame();
 
 
 
-
-
-
-
-
+$cells.on('click', handleCellClick);
+$restart.on('click', handleRestartGame);
 
 })
 

@@ -1,8 +1,7 @@
-table {
-  border: 2px solid black;
-  background-color: black;
-  margin: auto;
+h1 {
+  text-align: center;
 }
+
 h2 {
   text-align: center;
   color: blue;
@@ -15,13 +14,10 @@ button {
   margin-top: 20px;
 }
 
-.game-container {
-  display: flex;
-  flex-direction: column;
-}
-
-h1 {
-  text-align: center;
+table {
+  border: 2px solid black;
+  background-color: black;
+  margin: auto;
 }
 
 td {
@@ -32,4 +28,11 @@ td {
   text-align: center;
   font-size: 50px;
 }
+
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+}
+
 

@@ -1,4 +1,6 @@
+//////////////////////
 //Selectors
+//////////////////////
 var table = document.querySelector('table');
 var cells = document.querySelectorAll('table td');
 var resetButton = document.getElementById('reset');
@@ -7,7 +9,9 @@ var result = document.querySelector('h2');
 //Tracks 'X' or 'O'
 var count = 1;
 
-//Helper functions
+//////////////////////
+//Helper Functions
+//////////////////////
 var isEven = number => number % 2 === 0 ? true : false;
 
 var placer = (e) => {
@@ -46,7 +50,9 @@ var checkWin = input => {
   }
 }
 
-//Board Checker
+//////////////////////
+//Board Checkers
+//////////////////////
 
 var checkCols = (table) => {
   var allCols = [];
@@ -111,8 +117,9 @@ var checkBoard = (table) => {
   checkRows(table);
 
 };
-
+//////////////////////
 //Event Listeners
+//////////////////////
 cells.forEach(cell => {
   cell.addEventListener('click', e => placer(e))
 })

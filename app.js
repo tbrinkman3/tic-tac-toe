@@ -34,12 +34,38 @@ var reset = () => {
   count = 1;
 }
 
+var checkWin = input => {
+  if (input === 'XXX') {
+    result.innerHTML = 'X Wins!'
+  }
+  if (input === 'OOO'){
+    result.innerHTML = 'O Wins!'
+  }
+}
+
 //Board Checker
 
+//YOU HAVE BUILD MODELS BUT NEED TO ADD VIEWERS TO RETURN T OR F
 
-console.log(document.querySelector('table').rows[0].cells)
+var checkCols = (table) => {
+  var allCols = [];
 
-var checkColumn = () => {};
+  var rows = Array.from(table.rows);
+  for(let i = 0; i < rows.length; i++) {
+    for(let j = 0; j < rows.length; j++) {
+      var row = Array.from(rows[j].cells);
+      allCols.push(row[i].innerHTML)
+    }
+  }
+  var col1 = allCols.slice(0,3).join('');
+  var col2 = allCols.slice(3, 6).join('');
+  var col3 = allCols.slice(6, 9).join('');
+
+  checkWin(col1);
+  checkWin(col2);
+  checkWin(col3);
+
+};
 
 var checkRows = (table) => {
   var rows = Array.from(table.rows);
@@ -56,20 +82,38 @@ var checkRows = (table) => {
         numO+= input;
       }
     })
-    if (numX === 'XXX') {
-      result.innerHTML = 'X Wins!'
-    }
-    if (numO === 'OOO'){
-      result.innerHTML = 'O Wins!'
-    }
+    checkWin(numX);
+    checkWin(numO);
   })
 };
 
+var checkDiag = (table) => {
+  var rows = Array.from(table.rows);
+  var resultRow = [];
+
+  for(let i = 0; i < rows.length; i++) {
+    var row = Array.from(rows[i].cells);
+    row.forEach(cell => {
+      resultRow.push(cell.innerHTML)
+    })
+  }
+
+  var majorDiag = resultRow[0] + resultRow[4] + resultRow[8];
+  var minorDiag = resultRow[2] + resultRow[4] + resultRow[6];
+
+  checkWin(majorDiag);
+  checkWin(minorDiag);
+
+  console.log(majorDiag, minorDiag)
+
+  //console.log(majorDiag)
+
+};
+
+var checkBoard = (table) => {
 
 
-var checkDiag = () => {};
-
-var checkBoard = (table) => {};
+};
 
 
 
@@ -79,7 +123,7 @@ cells.forEach(cell => {
 })
 
 resetButton.addEventListener('click', reset);
-testButton.addEventListener('click', () => checkRows(table))
+testButton.addEventListener('click', () => checkDiag(table))
 
 
 

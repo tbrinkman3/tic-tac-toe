@@ -1,13 +1,13 @@
 //Selectors
 var cells = document.querySelectorAll('table td');
+var resetButton = document.querySelector('button');
 
 
-//Helper functions
+//Tracks 'X' or 'O'
 var count = 1;
 
+//Helper functions
 var isEven = number => number % 2 === 0 ? true : false;
-
-
 
 var placer = (e) => {
   var target = e.target;
@@ -24,10 +24,22 @@ var placer = (e) => {
   }
 }
 
+var reset = () => {
+  cells.forEach(cell => {
+    cell.innerHTML = '';
+    cell.classList.remove('clicked');
+  })
+  count = 1;
+}
 
 
 
+//Event Listeners
 cells.forEach(cell => {
   cell.addEventListener('click', e => placer(e))
 })
+
+resetButton.addEventListener('click', reset);
+
+
 

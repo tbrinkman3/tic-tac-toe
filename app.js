@@ -2,10 +2,7 @@
 var table = document.querySelector('table');
 var cells = document.querySelectorAll('table td');
 var resetButton = document.getElementById('reset');
-var testButton = document.getElementById('test')
 var result = document.querySelector('h2');
-
-console.log(result)
 
 //Tracks 'X' or 'O'
 var count = 1;
@@ -14,15 +11,18 @@ var count = 1;
 var isEven = number => number % 2 === 0 ? true : false;
 
 var placer = (e) => {
-  var target = e.target;
-  if (!target.classList.contains('clicked')) {
-    target.classList.add('clicked');
-    if (!isEven(count)) {
-      target.innerHTML = 'X';
-    } else {
-      target.innerHTML = 'O';
+  if(!table.classList.contains('finished')) {
+    var target = e.target;
+    if (!target.classList.contains('clicked')) {
+      target.classList.add('clicked');
+      if (!isEven(count)) {
+        target.innerHTML = 'X';
+      } else {
+        target.innerHTML = 'O';
+      }
+      count++;
     }
-    count++;
+    checkBoard(table)
   }
 }
 
@@ -31,21 +31,22 @@ var reset = () => {
     cell.innerHTML = '';
     cell.classList.remove('clicked');
   })
+  result.innerHTML = '';
   count = 1;
 }
 
 var checkWin = input => {
   if (input === 'XXX') {
     result.innerHTML = 'X Wins!'
+    table.classList.add('finished');
   }
   if (input === 'OOO'){
-    result.innerHTML = 'O Wins!'
+    result.innerHTML = 'O Wins!';
+    table.classList.add('finished');
   }
 }
 
 //Board Checker
-
-//YOU HAVE BUILD MODELS BUT NEED TO ADD VIEWERS TO RETURN T OR F
 
 var checkCols = (table) => {
   var allCols = [];
@@ -97,25 +98,19 @@ var checkDiag = (table) => {
       resultRow.push(cell.innerHTML)
     })
   }
-
   var majorDiag = resultRow[0] + resultRow[4] + resultRow[8];
   var minorDiag = resultRow[2] + resultRow[4] + resultRow[6];
 
   checkWin(majorDiag);
   checkWin(minorDiag);
-
-  console.log(majorDiag, minorDiag)
-
-  //console.log(majorDiag)
-
 };
 
 var checkBoard = (table) => {
-
+  checkCols(table);
+  checkDiag(table);
+  checkRows(table);
 
 };
-
-
 
 //Event Listeners
 cells.forEach(cell => {
@@ -123,7 +118,7 @@ cells.forEach(cell => {
 })
 
 resetButton.addEventListener('click', reset);
-testButton.addEventListener('click', () => checkDiag(table))
+
 
 
 

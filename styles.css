@@ -3,6 +3,9 @@ table {
   background-color: black;
 }
 
+h1 {
+  text-align: center;
+}
 td {
   border: 2px solid black;
   width:100px;
